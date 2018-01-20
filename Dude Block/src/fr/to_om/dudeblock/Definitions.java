@@ -3,20 +3,20 @@ package fr.to_om.dudeblock;
 public class Definitions{	
 	static int maxH = 10 ;
 	static int maxY = 10;
-	static String[][] map = new String [maxH][maxY];
+	static int[][] map = new int [maxH][maxY];
 	private static boolean estAuSol(int x, int y) {
 		 boolean b;
 		 if (x==maxH-1) { b =true; } else {b = false; } 
 		 return b ;
 	 }
-	 public static String [][] environnement() {
+	 public static int [][] environnement() {
 		 
 		 for (int i=0 ; i< maxH; i++) {
 			 for (int j=0; j< maxY;j++){
 				 if (estAuSol(i,j)) {
-					 map [i][j] = "bloc ";
+					 map [i][j] = 1; //1 est un bloc non déplaçable
 				 } else {
-				 map[i][j] = "---- ";
+				 map[i][j] = 0;		//0 est le vide
 				 }
 			 }
 		 }
@@ -25,7 +25,7 @@ public class Definitions{
 	 
 	 public static boolean estSurBloc(int x ,int y) {
 		 boolean b ;
-		 if (map [x+1][y] == "bloc ") {
+		 if (map [x+1][y] == 1 || map [x+1][y] == 2) { //2 est un bloc déplaçable
 			 b =true;
 		 } else { b =false; }
 		 return b;
@@ -37,8 +37,8 @@ public class Definitions{
 			 int j =0;
 			 while( j<maxY && !b) {
 				 if (estSurBloc(i,j)) {
-					 map[i][j]="Dude1";
-					 map[i-1][j]="Dude2";
+					 map[i][j]= 5; // 5 est la partie basse de Dude
+					 map[i-1][j]=4;// 4 est la partie haute de Dude
 					b = true;
 				 }
 				 j++;
@@ -71,12 +71,12 @@ public class Definitions{
 	 public static void pauseBloc() {
 		 
 	 }
-	 
+	 // POur un visu pdt l'ecriture
 	 
 	public static void main(String[] args) {
-		String [][] map = environnement();
-		map[maxH-2][0]="bloc ";
-		//map[3][2]="bloc ";
+		int [][] map = environnement();
+		map[maxH-2][0]=1;
+		
 		placementDude();
 		
 		 for (int i=0 ; i< maxH; i++) {
