@@ -1,4 +1,4 @@
-package src.fr.to_om.dudeblock;
+package fr.to_om.dudeblock;
 
 public class Definitions{	
 	static int maxH = 10 ;
